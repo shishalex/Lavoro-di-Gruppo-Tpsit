@@ -1,9 +1,6 @@
-// app.js
 const { createApp, ref, reactive, computed, defineComponent } = Vue
 
-//-------------------------------------------------------------
-// MODEL: rappresenta un prodotto del menù
-//-------------------------------------------------------------
+// rappresenta un prodotto del menù
 class Product {
   constructor(id, name, price, image) {
     this.id = id
@@ -13,15 +10,13 @@ class Product {
   }
 }
 
-//-------------------------------------------------------------
-// CONTROLLER: gestisce logica del carrello
-//-------------------------------------------------------------
+// gestisce logica del carrello
 const CartController = {
   addToCart(store, product) {
     store.items.push(product)
   },
   clearCart(store) {
-    // svuotamento reattivo
+    // svuotamento 
     store.items.splice(0, store.items.length)
   },
   getTotal(store) {
@@ -29,9 +24,7 @@ const CartController = {
   }
 }
 
-//-------------------------------------------------------------
-// COMPONENTE MenuItem → singolo piatto del menu
-//-------------------------------------------------------------
+// singolo piatto del menu
 const MenuItem = defineComponent({
   name: 'MenuItem',
   props: ['product'],
@@ -46,9 +39,7 @@ const MenuItem = defineComponent({
   `
 })
 
-//-------------------------------------------------------------
-// COMPONENTE CartView → vista del carrello
-//-------------------------------------------------------------
+// vista del carrello
 const CartView = defineComponent({
   name: 'CartView',
   props: ['cart', 'total'],
@@ -74,9 +65,7 @@ const CartView = defineComponent({
   `
 })
 
-//-------------------------------------------------------------
 // APP PRINCIPALE
-//-------------------------------------------------------------
 createApp({
   components: { MenuItem, CartView },
 
@@ -88,12 +77,12 @@ createApp({
     const accessGranted = ref(false)
     const error = ref('')
 
-    // STORE reattivo
+    // STORE
     const cartStore = reactive({
       items: []
     })
 
-    // LISTA PRODOTTI (MODEL)
+    // LISTA PRODOTTI
     const products = [
       new Product(1, 'Bucket Tenders + HotWings', 18, '/immagini/buchet_tender.png'),
       new Product(2, 'Bucket Vegano', 13, '/immagini/buchet vegano.png'),
@@ -126,7 +115,7 @@ createApp({
 
     ]
 
-    // COMPUTED → totale aggiornato
+    // totale aggiornato
     const total = computed(() => CartController.getTotal(cartStore))
 
     // LOGIN
@@ -180,5 +169,6 @@ createApp({
     }
   }
 }).mount('#app')
+
 
 
